@@ -1,6 +1,10 @@
 package one.digitalinnovation.gof.service.impl;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,7 +40,13 @@ public class ClienteServiceImpl implements ClienteService {
 	@Override
 	public Iterable<Cliente> buscarTodos() {
 		// Buscar todos os Clientes.
-		return clienteRepository.findAll();
+		Iterable<Cliente> clientesIterable = clienteRepository.findAll();
+		List<Cliente> lsClientes = new ArrayList<>();
+		clientesIterable.forEach(lsClientes::add);
+
+		// Prototype: Clonando a classe cliente para neste caso não mostrar o ID e alterar o nome dos clientes
+		lsClientes = lsClientes.stream().map(Cliente::clone).collect(Collectors.toList());
+		return lsClientes;
 	}
 
 	@Override

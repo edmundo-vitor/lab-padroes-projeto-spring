@@ -16,6 +16,16 @@ public class Cliente {
 	@ManyToOne
 	private Endereco endereco;
 
+	public Cliente() {
+	}
+
+	public Cliente(Cliente cliente) {
+		if(cliente != null) {
+			this.nome = cliente.getNome() + " clone";
+			this.endereco = cliente.getEndereco();
+		}
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -38,6 +48,10 @@ public class Cliente {
 
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
+	}
+
+	public Cliente clone() {
+		return new Cliente(this);
 	}
 
 }
